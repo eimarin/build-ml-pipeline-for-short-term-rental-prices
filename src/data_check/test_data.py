@@ -3,7 +3,7 @@ import numpy as np
 import scipy.stats
 
 
-def test_column_names(data):
+def test_column_names(data: pd.DataFrame):
 
     expected_colums = [
         "id",
@@ -30,7 +30,7 @@ def test_column_names(data):
     assert list(expected_colums) == list(these_columns)
 
 
-def test_neighborhood_names(data):
+def test_neighborhood_names(data: pd.DataFrame):
 
     known_names = ["Bronx", "Brooklyn", "Manhattan", "Queens", "Staten Island"]
 
@@ -64,8 +64,14 @@ def test_similar_neigh_distrib(data: pd.DataFrame, ref_data: pd.DataFrame, kl_th
 # Implement here test_row_count and test_price_range   #
 ########################################################
 
-def test_row_count(data):
+def test_row_count(data: pd.DataFrame):
+    """
+    Test if number of rows makes sense, current check is between 15000 and 1e6 rows
+    """
     assert 15000 < data.shape[0] < 1000000
 
-def test_price_range(data, min_price, max_price):
+def test_price_range(data: pd.DataFrame, min_price:float, max_price:float):
+        """
+    Test if the column price is between min and max price, for all rows. If one row has a value outside of these values if will fail the test
+    """
     assert data['price'].between(min_price, max_price).all()
